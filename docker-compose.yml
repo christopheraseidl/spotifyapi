@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spotify-api-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=spotify_api
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+    networks:
+      - spotify-api-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: spotify-api-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: spotify_api
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - spotify-api-network
+
+networks:
+  spotify-api-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
