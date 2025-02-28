@@ -6,10 +6,15 @@ services:
     container_name: spotify-api-app
     restart: unless-stopped
     working_dir: /var/www/html
+    user: root
     ports:
       - "8000:80"
     volumes:
       - ./:/var/www/html
+      - laravel-storage:/var/www/html/storage
+      - laravel-cache:/var/www/html/bootstrap/cache
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
     environment:
       - DB_CONNECTION=pgsql
       - DB_HOST=db
@@ -43,3 +48,5 @@ networks:
 
 volumes:
   postgres-data:
+  laravel-storage:
+  laravel-cache:
