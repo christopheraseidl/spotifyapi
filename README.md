@@ -4,7 +4,7 @@ Spotify API permite acceder a información de Spotify dentro de Laravel.
 
 ## Versiones PHP
 
-- PHP 8.4
+- PHP 8.4+
 
 ## Instalación
 
@@ -28,10 +28,44 @@ composer require christopheraseidl/spotifyapi
 ## Configuración de Docker
 
 1. Copiar .env.example a .env: `cp .env.example .env`
-2. Ejecutar `docker compose up -d` para iniciar el contenedor. (Este comando puede variar según la versión local de Docker.)
-3. Ejecutar `docker compose exec app php artisan key:generate` para generar la clave de la aplicación.
-4. Ejecutar `docker compose exec app php artisan migrate` para crear las tablas de la base de datos.
-5. Acceder a la API en http://localhost:8000.
+2. Ejecturar `php artisan key:generate` para generar la clave de la aplicación.
+3. Ejecutar `docker compose up -d` para iniciar el contenedor. (Este comando puede variar según la versión local de Docker.)
+4. Acceder a la API en sus puntos finales.
+
+## Uso
+
+Una vez registrado, los usuarios podrán hacer búsquedas en Spotify a través del punto final en `localhost:8000/api/v1/search`.
+
+Cada petición debe contener en sus Headers el token de autorización generado durante el registro o cuando el usuario entre en su cuenta.
+
+### Parámetros de búsqueda
+
+La búsqueda requiere los siguientes parámetros:
+
+- q (requerido): Término de búsqueda para encontrar canciones, artistas, etc.
+- type (requerido): Tipo de búsqueda (track, artist, album, playlist)
+- page (opcional): Número de página para resultados paginados (por defecto: 1)
+- limit (opcional): Número de resultados por página (por defecto: 20, máximo: 50)
+
+Ejemplo de petición POST:
+```
+POST /api/v1/search
+Headers:
+  Authorization: Bearer {your_token}
+  Content-Type: application/json
+
+Body:
+{
+  "q": "Wu-Tang Clan",
+  "type": "artist",
+  "page": 1,
+  "limit": 20
+}
+```
+
+## Documentación
+
+Consulta la documentación interactiva, disponible en el enlace `/docs/api`, para más información detallada sobro todos los puntos finales, parámetros y respuestas de la API.
 
 ## Licencia
 

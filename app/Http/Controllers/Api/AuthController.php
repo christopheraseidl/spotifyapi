@@ -15,6 +15,9 @@ class AuthController extends Controller
 {
     use GeneratesApiResponses;
 
+    /**
+     * Registrar un nuevo usuario.
+     */
     public function register(RegisterUserRequest $request): JsonResponse
     {
         $request->validated();
@@ -38,6 +41,9 @@ class AuthController extends Controller
         );
     }
 
+    /**
+     * Generar un nuevo token de autenticación para un usuario registrado.
+     */
     public function login(LoginUserRequest $request): JsonResponse
     {
         $request->validated();
@@ -60,6 +66,9 @@ class AuthController extends Controller
         );
     }
 
+    /**
+     * Eliminar el token actual del usuario.
+     */
     public function logout(Request $request): JsonResponse
     {
         $request->user()?->currentAccessToken()?->delete();

@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 
 class SearchController extends ApiController
 {
+    /**
+     * Mostrar los resultados de la búsqueda.
+     */
     public function index(SearchRequest $request): JsonResponse
     {
         $request->validated();
