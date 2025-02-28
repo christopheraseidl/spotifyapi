@@ -28,13 +28,18 @@ composer require christopheraseidl/spotifyapi
 ## Configuración de Docker
 
 1. Copiar .env.example a .env: `cp .env.example .env`
-2. Ejecturar `php artisan key:generate` para generar la clave de la aplicación.
+2. Ejecutar `php artisan key:generate` para generar la clave de la aplicación.
 3. Ejecutar `docker compose up -d` para iniciar el contenedor. (Este comando puede variar según la versión local de Docker.)
 4. Acceder a la API en sus puntos finales.
 
 ## Uso
 
-Una vez registrado, los usuarios podrán hacer búsquedas en Spotify a través del punto final en `localhost:8000/api/v1/search`.
+Los usuarios pueden:
+- registrar en `/api/register`.
+- generar un token de autorización en `/api/login`.
+- eliminar el token de autorización en `/api/logout`.
+
+Una vez registrado, los usuarios podrán hacer búsquedas en Spotify a través de peticiones POST en el punto final en `/api/v1/search`.
 
 Cada petición debe contener en sus Headers el token de autorización generado durante el registro o cuando el usuario entre en su cuenta.
 
@@ -65,7 +70,7 @@ Body:
 
 ## Documentación
 
-Consulta la documentación interactiva, disponible en el enlace `/docs/api`, para más información detallada sobro todos los puntos finales, parámetros y respuestas de la API.
+Consulta la documentación interactiva, disponible en el enlace `/docs/api`, para más información detallada sobre todos los puntos finales, parámetros y respuestas de la API.
 
 ## Licencia
 
